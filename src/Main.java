@@ -22,6 +22,9 @@ public class Main {
 
         searchButton = new JButton("Get Weather");
 
+        cityTextField.addActionListener(event -> fetchWeather());
+        searchButton.addActionListener(event -> fetchWeather());
+
         inputPanel.add(cityTextField, BorderLayout.CENTER);
         inputPanel.add(searchButton, BorderLayout.EAST);
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -56,6 +59,23 @@ public class Main {
         frame.setLocationRelativeTo(null);
     }
 
+    private void fetchWeather(){
+        String city = cityTextField.getText();
+        if (city == null || city.trim().isEmpty()){
+            resetDisplay();
+            return;
+        }
+
+        locationLabel.setText("Searching for " + city + "...");
+        temperatureLabel.setText("");
+        descriptionLabel.setText("");
+    }
+
+    private void resetDisplay(){
+        locationLabel.setText("Please enter a city");
+        temperatureLabel.setText("--°");
+        descriptionLabel.setText("---");
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() ->{
             Main app = new Main();
